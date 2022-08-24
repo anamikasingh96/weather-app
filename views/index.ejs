@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find-weather</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href="../style.css"> -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Tajawal", sans-serif;
+      }
+
+      .container {
+        width: 100%;
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .container img {
+        width: 100%;
+        height: 100vh;
+      }
+
+      #city {
+        position: absolute;
+        top: 40px;
+        right: 40px;
+        width: 300px;
+        height: 40px;
+        outline: none;
+        border: none;
+        background-color: #f1f1f185;
+        border-radius: 25px;
+        padding-left: 20px;
+        font-size: 15px;
+        font-weight: 700;
+        color: #3c3c3c;
+      }
+
+      #city::placeholder {
+        font-size: 15px;
+        font-weight: 700;
+        color: #3c3c3c;
+      }
+
+      svg {
+        position: absolute;
+        top: 50px;
+        right: 60px;
+        cursor: pointer;
+      }
+
+      .date-time {
+        position: absolute;
+        bottom: 30px;
+        left: 30px;
+      }
+
+      .time,
+      .date {
+        font-size: 35px;
+        font-size: 400;
+        color: #fff;
+      }
+
+      .data {
+        width: 400px;
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 46%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .place-info,
+      .temp,
+      .desc {
+        font-size: 75px;
+        font-weight: 900;
+        color: #fff;
+        line-height: 80px;
+      }
+
+      .desc {
+        width: 80vw;
+        text-align: center;
+        font-weight: 700;
+        text-transform: capitalize;
+      }
+
+      .view-more-box {
+        width: 10%;
+        height: 300px;
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .view {
+        font-size: 15px;
+        font-weight: 600;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .svg {
+        width: 22px;
+        position: absolute;
+        top: 136px;
+        right: 15px;
+        cursor: pointer;
+        transition: 0.5s;
+      }
+
+      .info-card {
+        width: 300px;
+        height: 150px;
+        background: #f1f1f175;
+        position: absolute;
+        left: 50.4%;
+        transform: translateX(-50%);
+        bottom: -350px;
+        border-radius: 15px;
+        padding-top: 20px;
+        padding-left: 30px;
+        opacity: 0;
+        transition: 0.7s;
+      }
+
+      .flex {
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .info-card p {
+        font-size: 18px;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 15px;
+      }
+
+      .speed {
+        position: relative;
+        left: 20px;
+      }
+
+      .rotate {
+        transform: rotate(180deg);
+        transition: 0.5s;
+      }
+
+      .visible {
+        opacity: 1;
+        bottom: 50px;
+        transition: 0.5s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img src="/images/20220223_070212491.jpg" alt="abc">
+      <div class="search-box">
+        <form action="/" method="post">
+          <input
+            type="text"
+            name="city"
+            id="city"
+            placeholder="Search for a city...."
+            autocomplete="off"
+          />
+          <button type="submit">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#3c3c3c"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <div class="data">
+        <p class="place-info"><%= sendData.location %>,<%= sendData.country %> </p>
+        <p class="temp"><%= sendData.temp %><%= String.fromCharCode(176) %> </p>
+        <p class="desc"><%= sendData.desc%></p>
+      </div>
+
+      <div class="view-more-box">
+        <p class="view">View More</p>
+        <svg
+          class="svg"
+          xmlns="http://www.w3.org/2000/svg"
+          width="30"
+          height="30"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#ffff"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </div>
+
+      <div class="info-card">
+        <div class="flex">
+          <p class="feel">Feel-like:</p>
+          <p class="feel"><%= sendData.feel %></p>
+        </div>
+        <div class="flex">
+          <p class="humidity">Humidity:</p>
+          <p class="feel"><%= sendData.humidity %></p>
+        </div>
+        <div class="flex">
+          <p class="windSpeed">Wind-Speed:</p>
+          <p class="feel speed"><%= sendData.speed%></p>
+        </div>
+      </div>
+
+      <div class="date-time">
+        <p class="time">Time</p>
+        <p class="date">Day and Date</p>
+      </div>
+    </div>
+    <script>
+      const view = document.querySelector(".view");
+      const viewSvg = document.querySelector(".svg");
+      const search = document.querySelector("svg");
+      const viewMoreBox = document.querySelector(".info-card");
+      const time = document.querySelector(".time");
+      const date = document.querySelector(".date");
+      const viewLess = document.querySelector(".less");
+
+      let currTime = () => {
+        let currDate = new Date();
+        let localTime = currDate.toLocaleTimeString();
+        time.innerHTML = localTime;
+      };
+
+      let currDay = () => {
+        let day = new Date();
+        let options = {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        };
+        let today = day.toLocaleDateString("en-US", options);
+        date.innerHTML = today;
+      };
+
+      currDay();
+
+      setInterval(currTime, 1000);
+
+      view.addEventListener("click", () => {
+        viewSvg.classList.toggle("rotate");
+        viewMoreBox.classList.toggle("visible");
+        view.classList.toggle("less");
+        if (view.classList.contains("less")) {
+          view.innerHTML = "View Less";
+        } else {
+          view.innerHTML = "View More";
+        }
+      });
+
+      viewSvg.addEventListener("click", () => {
+        viewSvg.classList.toggle("rotate");
+        viewMoreBox.classList.toggle("visible");
+        view.classList.toggle("less");
+        if (view.classList.contains("less")) {
+          view.innerHTML = "View Less";
+        } else {
+          view.innerHTML = "View More";
+        }
+      });
+    </script>
+  </body>
+</html>
